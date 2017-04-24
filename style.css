@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+}
+
+.a, .b {
+  float: left;
+  width: 50%;
+  height: 300px;
+}
+
+.a {
+  background: teal;
+}
+
+.b {
+  background: tan;
+}
+
+.y {
+  color: red;
+}
+
+ul {
+  list-style: none;
+}
