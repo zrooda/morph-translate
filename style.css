@@ -14,6 +14,7 @@ body {
 
 .b {
   background: tan;
+  position: relative;
 }
 
 .y {
@@ -22,4 +23,20 @@ body {
 
 ul {
   list-style: none;
+}
+
+.b ul {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
+.b ul li {
+  margin-bottom: 10px;
+}
+
+.b ul li:nth-child(odd) {
+  color: red;
 }

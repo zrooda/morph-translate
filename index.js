@@ -3,6 +3,7 @@ function transport (source, target, options, callback) {
       opts = {
         log: false,
         morph: false,
+        morphProps: ['width', 'height', 'padding', 'color', 'background', 'border', 'fontSize', 'opacity'],
         duration: '300ms',
         easing: 'ease-in-out',
         stagger: '30ms',
@@ -54,6 +55,7 @@ function transport (source, target, options, callback) {
       // Conflicting properties
       clone.style.margin = 0;
       clone.style.transform = 'none';
+      clone.style.webkitTextFillColor = 'initial';
       fragment.appendChild(clone);
     })
     return fragment;
@@ -73,7 +75,17 @@ function transport (source, target, options, callback) {
 
   function morphPosition (source, target) {
     opts.log && console.info('morphing', source, target);
-    opts.log && console.warn('morphing is dirty check intensive!');
+    source.forEach(function (node, i) {
+      var currentTarget = target[i],
+          targetStyles = window.getComputedStyle(currentTarget),
+          sourceBounds = node.getBoundingClientRect(),
+          targetBounds = currentTarget.getBoundingClientRect();
+      node.style.transitionDelay = i * parseInt(opts.stagger) + 'ms';
+      node.style.transform = 'translate(' + (targetBounds.left - sourceBounds.left) + 'px,' + (targetBounds.top - sourceBounds.top) + 'px)';
+      opts.morphProps.forEach(function (property) {
+        node.style[property] = targetStyles[property];
+      })
+    })
   }
 
   function tweenPosition (source, target) {
