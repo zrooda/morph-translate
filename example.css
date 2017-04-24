@@ -1,0 +1,145 @@
+html, body {
+  height: 100%;
+  box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'PT Serif', serif;
+  color: white;
+  font-size: 20px;
+  position: relative;
+  perspective: 1000px; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+ul {
+  padding: 0;
+  margin: 0 0 20px 0; }
+
+p {
+  margin: 0 0 20px 0; }
+
+/* --- */
+
+.view {
+  position: absolute;
+  padding: 15px;
+  overflow: scroll; }
+
+.view:before {
+  content: '';
+  display: table; }
+
+.view-a {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #258dc8 0%,#258dc8 100%); }
+
+.view-b {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  background-color: rgba(0,0,0,0.9);
+  opacity: 0;
+  padding: 120px 20px 30px 20px;
+  pointer-events: none; }
+
+.view-b.active {
+  pointer-events: all;
+  animation: detailIn 300ms ease-out forwards 500ms; }
+
+.users {
+  list-style: none;
+  padding-left: 40px; }
+
+.users li {
+  position: relative;
+  padding: 10px 0 10px 60px; }
+
+.avatar {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: url(https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/07/03/10/jimcarrey.jpg) no-repeat 50% / cover;
+  border: 2px solid white; }
+
+.view-b .avatar {
+  width: 70px;
+  height: 70px;
+  left: 20px;
+  top: 30px;
+  transform: none; }
+
+.view-b .name {
+  position: absolute;
+  top: 45px;
+  left: 150px;
+  transform: scale(1.5); }
+
+.view-b .job {
+  color: white;
+  margin-left: 58px;
+  transform: scale(0.8);
+  opacity: 0.4;
+  font-style: normal; }
+
+.view-b ul,
+.view-b blockquote {
+  opacity: 0;
+  transition: all 400ms ease-out; }
+
+.view-b ul {
+  margin-left: 60px;
+  transition-delay: 800ms;
+  transform: translateX(-10px); }
+
+.view-b blockquote {
+  margin-bottom: 5px;
+  text-align: center;
+  opacity: 0;
+  transition-delay: 900ms;
+  transform: translateX(10px); }
+
+.view-b.active ul {
+  opacity: 1;
+  transform: none; }
+
+.view-b.active blockquote {
+  opacity: 0.8;
+  transform: none; }
+
+.users li:nth-child(1) .avatar {
+  background-image: url(https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/07/03/10/jimcarrey.jpg); }
+
+.users li:nth-child(2) .avatar {
+  background-image: url(https://www.phactual.com/wp-content/uploads/2015/05/006-bill-murray-theredlist-5-times-bill-murray-won-at-life-the-only-way-bill-murray-can.jpeg); }
+
+.users li:nth-child(3) .avatar {
+  background-image: url(http://www.billboard.com/files/media/sid-vicious-sex-pistols-portrait-bw-billboard-1548.jpg); }
+
+.name {
+  display: block; }
+
+.job {
+  display: block;
+  font-size: 16px;
+  opacity: 0.7; }
+
+blockquote {
+  font-style: italic; }
+
+@keyframes detailIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(70%, -50%, 500px) rotateY(-90deg) scale(0.5); }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,-50%,0); }}

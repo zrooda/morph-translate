@@ -9,7 +9,7 @@ function transport (source, target, options, callback) {
         stagger: 30,
         hideSource: true,
         hideTarget: true,
-        cleanAfter: false
+        removeClonesAfter: true
       };
   opts = Object.assign(opts, options);
 
@@ -50,10 +50,10 @@ function transport (source, target, options, callback) {
       // Custom properties
       clone.style.transitionProperty = 'all';
       clone.style.transitionDuration = opts.duration + 'ms';
-      clone.style.transitionEasingFunction = opts.easing;
+      clone.style.transitionTimingFunction = opts.easing;
       // clone.style.willChange = 'transform';
       // Conflicting properties
-      //clone.style.margin = 0;
+      clone.style.margin = 0;
       clone.style.transform = 'none';
       clone.style.webkitTextFillColor = 'initial';
       fragment.appendChild(clone);
@@ -125,13 +125,13 @@ function transport (source, target, options, callback) {
 
   // Clean after effect
   setTimeout(function () {
-    if (opts.cleanAfter) {
+    if (opts.removeClonesAfter) {
       opts.log && console.info('cleaning up');
-      manageVisibility(true, true);
+      manageVisibility(false, true);
       removeNodes(refs);
     }
     if (callback && typeof callback == 'function') {
       callback.call();
     }
-  }, opts.duration + opts.stagger * (refs.length - 1) + 10);
+  }, opts.duration + opts.stagger * (refs.length - 1) + 20);
 }

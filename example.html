@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>dom-transport | example1</title>
+  <link rel="stylesheet" href="example.css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i" rel="stylesheet">
+</head>
+<body>
+
+<div class="view view-a">
+  <p>Obacht! Schnitzel und Scharmützel frickeln frivol Trinkhalle. Der Waschweib bauchpinseln das dufte Zeche.</p>
+  <ul class="users">
+    <li>
+      <span class="avatar"></span>
+      <span class="name">Jay "Gif" Jiff</span>
+      <span class="job">GTFO of Technology</span>
+    </li>
+    <li>
+      <span class="avatar"></span>
+      <span class="name">Jordan Jackson</span>
+      <span class="job">Executive Executor</span>
+    </li>
+    <li>
+      <span class="avatar"></span>
+      <span class="name">Jimbo Jones</span>
+      <span class="job">HR pimp boi</span>
+    </li>
+  </ul>
+  <p>Griaß di! Der garstig Schutzschwalbe. Das Schutzschwalbe jauchzen die butterweich Kesselflicker. Muckefuck und Klimbim ergötzen blümerant Fressalien. Lecko mio!</p>
+</div>
+
+<div class="view view-b">
+  <span class="avatar"></span>
+  <span class="name">Jay "Gif" Jiff</span>
+  <ul>
+    <li>Quite the baller</li>
+    <li>Opportunistic memer</li>
+    <li>Does the work</li>
+  </ul>
+  <blockquote>The secret to obsolescence is being unpopular.</blockquote>
+  <span class="job">GTFO of Technology</span>
+  
+</div>
+
+<script src="index.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.users li').forEach(function (node) {
+      node.addEventListener('click', function (){
+        console.log(this);
+        document.querySelector('.view-b').classList.add('active');
+        transport('.view-a .users li:nth-child(1) .avatar', '.view-b .avatar', { morph: true, duration: 800, easing: 'ease-out' })
+        transport('.view-a .users li:nth-child(1) .name', '.view-b .name', { morph: true,  duration: 800, easing: 'ease-out' })
+        transport('.view-a .users li:nth-child(1) .job', '.view-b .job', { morph: true, duration: 800, easing: 'ease-out' })
+      })
+    })
+  }, false);
+</script>
+</body>
+</html>
