@@ -38,6 +38,8 @@ ul {
 
 .b ul li {
   margin-bottom: 10px;
+  transform: scale(3.5);
+  transform-origin: 50% 50% 0;
 }
 
 .b ul li:nth-child(even) {

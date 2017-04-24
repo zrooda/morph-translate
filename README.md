@@ -2,10 +2,11 @@
 
 `transport('.source', '.target', { options })`
 
-##Options
+### Options
 
 `log` - logging to console (`false`)  
 `morph` -  attempt to morph source into target (`false`)  
+`morphProps` - properties to transition during a morph (`Array`)  
 `duration` - transport duration in ms (`300`)  
 `easing` - transport easing (`'ease-in-out'`)  
 `stagger` - transport delay between members in ms (`30`)   

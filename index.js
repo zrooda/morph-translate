@@ -80,15 +80,18 @@ function transport (source, target, options, callback) {
           targetStyles = window.getComputedStyle(currentTarget),
           sourceBounds = node.getBoundingClientRect(),
           targetBounds = currentTarget.getBoundingClientRect(),
-          translateX = targetBounds.left - sourceBounds.left,
-          translateY = targetBounds.top - sourceBounds.top;
+          scaleX = targetBounds.width / currentTarget.offsetWidth,
+          scaleY = targetBounds.height / currentTarget.offsetHeight,
+          translateX = targetBounds.left + ((targetBounds.width - targetBounds.width / scaleX) / 2) - sourceBounds.left,
+          translateY = targetBounds.top + ((targetBounds.height - targetBounds.height / scaleY) / 2) - sourceBounds.top;
       // Stagger delay
       node.style.transitionDelay = i * opts.stagger + 'ms';
       // Transition all relevant properties to target state
       opts.morphProps.forEach(function (property) {
         node.style[property] = targetStyles[property];
       })
-      node.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px)';
+      node.style.transformOrigin = '50% 50% 0';
+      node.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px) scale(' + scaleX + ',' + scaleY + ')';
     })
   }
 
