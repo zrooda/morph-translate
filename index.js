@@ -1,5 +1,4 @@
-function transport (source, target, options) {
-
+function transport (source, target, options, callback) {
   var refs = [],
       opts = {
         log: false,
@@ -9,7 +8,8 @@ function transport (source, target, options) {
         stagger: '30ms',
         hideSource: true,
         hideTarget: true,
-        cleanAfter: true
+        cleanAfter: true,
+        
       };
   opts = Object.assign(opts, options);
 
@@ -106,11 +106,14 @@ function transport (source, target, options) {
   }
 
   // Clean after effect
-  if (opts.cleanAfter) {
-    setTimeout(function () {
+  setTimeout(function () {
+    if (opts.cleanAfter) {
       opts.log && console.info('cleaning up');
       manageVisibility(true, true);
       removeNodes(refs);
-    }, parseInt(opts.duration) + parseInt(opts.stagger) * (refs.length - 1) + 10);
-  }
+    }
+    if (callback && typeof callback == 'function') {
+      callback.call();
+    }
+  }, parseInt(opts.duration) + parseInt(opts.stagger) * (refs.length - 1) + 10);
 }
