@@ -8,8 +8,7 @@ function transport (source, target, options, callback) {
         stagger: '30ms',
         hideSource: true,
         hideTarget: true,
-        cleanAfter: true,
-        
+        cleanAfter: false
       };
   opts = Object.assign(opts, options);
 

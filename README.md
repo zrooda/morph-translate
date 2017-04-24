@@ -11,4 +11,4 @@
 `stagger` - transport delay between members (`30ms`)   
 `hideSource` - hide source element during transport (`true`)  
 `hideTarget` - hide target element during transport (`true`)  
-`cleanAfter` - remove clones and reset visibility (`true`)
+`cleanAfter` - remove clones and reset visibility after transport (`false`)
