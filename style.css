@@ -25,16 +25,24 @@ ul {
   list-style: none;
 }
 
+.a li {
+  display: inline-block;
+}
+
 .b ul {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 30px;
 }
 
 .b ul li {
   margin-bottom: 10px;
+}
+
+.b ul li:nth-child(even) {
+  padding-left: 20px;
+  opacity: 0.3;
 }
 
 .b ul li:nth-child(odd) {

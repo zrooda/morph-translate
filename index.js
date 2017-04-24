@@ -4,9 +4,9 @@ function transport (source, target, options, callback) {
         log: false,
         morph: false,
         morphProps: ['width', 'height', 'padding', 'color', 'background', 'border', 'fontSize', 'opacity'],
-        duration: '300ms',
+        duration: 300,
         easing: 'ease-in-out',
-        stagger: '30ms',
+        stagger: 30,
         hideSource: true,
         hideTarget: true,
         cleanAfter: false
@@ -49,11 +49,11 @@ function transport (source, target, options, callback) {
       clone.style.zIndex = '1000';
       // Custom properties
       clone.style.transitionProperty = 'all';
-      clone.style.transitionDuration = opts.duration;
+      clone.style.transitionDuration = opts.duration + 'ms';
       clone.style.transitionEasingFunction = opts.easing;
       // clone.style.willChange = 'transform';
       // Conflicting properties
-      clone.style.margin = 0;
+      //clone.style.margin = 0;
       clone.style.transform = 'none';
       clone.style.webkitTextFillColor = 'initial';
       fragment.appendChild(clone);
@@ -79,12 +79,16 @@ function transport (source, target, options, callback) {
       var currentTarget = target[i],
           targetStyles = window.getComputedStyle(currentTarget),
           sourceBounds = node.getBoundingClientRect(),
-          targetBounds = currentTarget.getBoundingClientRect();
-      node.style.transitionDelay = i * parseInt(opts.stagger) + 'ms';
-      node.style.transform = 'translate(' + (targetBounds.left - sourceBounds.left) + 'px,' + (targetBounds.top - sourceBounds.top) + 'px)';
+          targetBounds = currentTarget.getBoundingClientRect(),
+          translateX = targetBounds.left - sourceBounds.left,
+          translateY = targetBounds.top - sourceBounds.top;
+      // Stagger delay
+      node.style.transitionDelay = i * opts.stagger + 'ms';
+      // Transition all relevant properties to target state
       opts.morphProps.forEach(function (property) {
         node.style[property] = targetStyles[property];
       })
+      node.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px)';
     })
   }
 
@@ -126,5 +130,5 @@ function transport (source, target, options, callback) {
     if (callback && typeof callback == 'function') {
       callback.call();
     }
-  }, parseInt(opts.duration) + parseInt(opts.stagger) * (refs.length - 1) + 10);
+  }, opts.duration + opts.stagger * (refs.length - 1) + 10);
 }
