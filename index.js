@@ -100,7 +100,7 @@ function transport (source, target, options, callback) {
     source.forEach(function (node, i) {
       var sourceBounds = node.getBoundingClientRect(),
           targetBounds = target[i].getBoundingClientRect();
-      node.style.transitionDelay = i * parseInt(opts.stagger) + 'ms';
+      node.style.transitionDelay = i * opts.stagger + 'ms';
       node.style.transform = 'translate(' + (targetBounds.left - sourceBounds.left) + 'px,' + (targetBounds.top - sourceBounds.top) + 'px)';
     })
   }
