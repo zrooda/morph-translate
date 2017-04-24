@@ -1,6 +1,6 @@
-function transport (source, target, options, callback) {
+function transport (source, target, options) {
   var refs = [],
-      opts = {
+      opts = Object.assign({
         log: false,
         morph: false,
         morphProps: ['width', 'height', 'padding', 'color', 'background', 'border', 'fontSize', 'opacity'],
@@ -10,8 +10,7 @@ function transport (source, target, options, callback) {
         hideSource: true,
         hideTarget: true,
         removeClonesAfter: true
-      };
-  opts = Object.assign(opts, options);
+      }, options);
 
   opts.log && console.info('transporting ' + source + ' > ' + target);
   source = document.querySelectorAll(source);
@@ -130,7 +129,7 @@ function transport (source, target, options, callback) {
       manageVisibility(false, true);
       removeNodes(refs);
     }
-    if (callback && typeof callback == 'function') {
+    if (opts.callback && typeof callback == 'function') {
       callback.call();
     }
   }, opts.duration + opts.stagger * (refs.length - 1) + 20);

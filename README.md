@@ -20,4 +20,5 @@
 `stagger` - transport delay between members in ms (`30`)  
 `hideSource` - hide source element during transport (`true`)  
 `hideTarget` - hide target element during transport (`true`)  
-`removeClonesAfter` - remove clones after transport (`true`)
+`removeClonesAfter` - remove clones after transport (`true`)  
+`callback` - function to call after transport is done
