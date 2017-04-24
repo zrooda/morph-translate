@@ -1,6 +1,6 @@
 # dom-transport
 
-`transport('.source', '.target', { options })`
+`transport('.source', '.target', { options }, callback)`
 
 ### Options
 
