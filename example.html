@@ -50,11 +50,14 @@
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.users li').forEach(function (node) {
       node.addEventListener('click', function (){
-        console.log(this);
         document.querySelector('.view-b').classList.add('active');
-        transport('.view-a .users li:nth-child(1) .avatar', '.view-b .avatar', { morph: true, duration: 800, easing: 'ease-out' })
-        transport('.view-a .users li:nth-child(1) .name', '.view-b .name', { morph: true,  duration: 800, easing: 'ease-out' })
-        transport('.view-a .users li:nth-child(1) .job', '.view-b .job', { morph: true, duration: 800, easing: 'ease-out' })
+        transport('.view-a .users li:nth-child(1) .avatar', '.view-b .avatar', { morph: true, duration: 800, easing: 'ease-out' });
+        setTimeout(function () {
+          transport('.view-a .users li:nth-child(1) .name', '.view-b .name', { morph: true,  duration: 800, easing: 'ease-out' })
+        }, 300);
+        setTimeout(function () {
+          transport('.view-a .users li:nth-child(1) .job', '.view-b .job', { morph: true, duration: 800, easing: 'ease-out' });
+        }, 200);
       })
     })
   }, false);

@@ -74,15 +74,33 @@ p {
 .view-b .avatar {
   width: 70px;
   height: 70px;
-  left: 20px;
+  left: 30px;
   top: 30px;
   transform: none; }
 
 .view-b .name {
   position: absolute;
   top: 45px;
-  left: 150px;
-  transform: scale(1.5); }
+  left: 160px;
+  transform: scale(1.6);
+  color: cadetblue; }
+
+.view-b .name:before {
+  content: '';
+  display: block;
+  height: 1px;
+  background-color: cadetblue;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  opacity: 0;
+  transition: all 300ms ease-out;
+  transition-delay: 1200ms; }
+
+.view-b.active .name:before {
+  opacity: 0.3;
+  transform: translateY(5px); }
 
 .view-b .job {
   color: white;
@@ -115,6 +133,7 @@ p {
 .view-b.active blockquote {
   opacity: 0.8;
   transform: none; }
+
 
 .users li:nth-child(1) .avatar {
   background-image: url(https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/07/03/10/jimcarrey.jpg); }
