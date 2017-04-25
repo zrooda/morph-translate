@@ -2,7 +2,7 @@
 
 `transport('.source', '.target', { options })`
 
-![dom-transport example!](https://github.com/mystrdat/dom-transport/raw/master/example.gif)
+![dom-transport example!](https://github.com/mystrdat/dom-transport/raw/master/example.gif)![dom-transport example2!](https://github.com/mystrdat/dom-transport/raw/master/example2.gif)
 
 - usable for complex effects where some elements persist between independent views
 - source and target elements should have the same DOM structure, otherwise results may vary
@@ -15,7 +15,7 @@
 
 `log` - logging to console (`false`)  
 `morph` -  attempt to morph source into target (`false`)  
-`morphProps` - properties to transition during a morph (`[Array](https://github.com/mystrdat/dom-transport/blob/master/index.js#L6)`)  
+`morphProps` - properties to transition during a morph ([Array](https://github.com/mystrdat/dom-transport/blob/master/index.js#L6))  
 `duration` - transport duration in ms (`300`)  
 `easing` - transport easing (`'ease-in-out'`)  
 `stagger` - transport delay between members in ms (`30`)  
