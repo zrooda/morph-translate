@@ -83,13 +83,13 @@ p {
   top: 45px;
   left: 160px;
   transform: scale(1.6);
-  color: cadetblue; }
+  color: #258dc8; }
 
 .view-b .name:before {
   content: '';
   display: block;
   height: 1px;
-  background-color: cadetblue;
+  background-color: #258dc8;
   position: absolute;
   left: 10px;
   right: 10px;
