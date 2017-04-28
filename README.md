@@ -1,6 +1,6 @@
 # dom-transport
 
-`transport('.source', '.target', { options })`
+`DOMTransport('.source', '.target', { options })`
 
 ![dom-transport example!](https://github.com/mystrdat/dom-transport/raw/master/example.gif)![dom-transport example2!](https://github.com/mystrdat/dom-transport/raw/master/example2.gif)
 
