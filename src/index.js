@@ -1,8 +1,8 @@
 const DOMTransport = (src, tgt, opts) => {
   // Defaults
   const refs = [],
-        source = document.querySelectorAll(src),
-        target = document.querySelectorAll(tgt),
+        source = src instanceof HTMLElement ? [src] : Array.from(src),
+        target = tgt instanceof HTMLElement ? [tgt] : Array.from(tgt),
         options = Object.assign({
           log: false,
           morph: false,

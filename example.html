@@ -33,7 +33,7 @@
 </div>
 
 <div class="view view-b">
-  <span class="avatar"></span>
+  <span class="avatar" id="avatar"></span>
   <span class="name">Jay "Gif" Jiff</span>
   <ul>
     <li>Quite the baller</li>
@@ -51,12 +51,12 @@
     document.querySelectorAll('.users li').forEach(function (node) {
       node.addEventListener('click', function (){
         document.querySelector('.view-b').classList.add('active');
-        DOMTransport('.view-a .users li:nth-child(1) .avatar', '.view-b .avatar', { morph: true, duration: 800, easing: 'ease-out' });
+        DOMTransport(node.getElementsByClassName('avatar'), document.getElementById('avatar'), { morph: true, duration: 800, easing: 'ease-out' });
         setTimeout(function () {
-          DOMTransport('.view-a .users li:nth-child(1) .name', '.view-b .name', { morph: true,  duration: 800, easing: 'ease-out' })
+          DOMTransport(node.querySelector('.name'), document.querySelector('.view-b .name'), { morph: true,  duration: 800, easing: 'ease-out' })
         }, 300);
         setTimeout(function () {
-          DOMTransport('.view-a .users li:nth-child(1) .job', '.view-b .job', { morph: true, duration: 800, easing: 'ease-out' });
+          DOMTransport(node.querySelector('.job'), document.querySelector('.view-b .job'), { morph: true, duration: 800, easing: 'ease-out' });
         }, 200);
       })
     })
