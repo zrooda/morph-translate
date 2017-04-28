@@ -81,7 +81,7 @@ const DOMTransport = (src, tgt, opts) => {
   function morphToPosition(source, target) {
     options.log && console.info('morphing', source, target);
     source.forEach((node, i) => {
-      var currentTarget = target[i],
+      var currentTarget = target[i] || target,
           targetStyles = window.getComputedStyle(currentTarget),
           sourceBounds = node.getBoundingClientRect(),
           targetBounds = currentTarget.getBoundingClientRect(),
@@ -104,7 +104,7 @@ const DOMTransport = (src, tgt, opts) => {
     options.log && console.info('tweening', source, target);
     source.forEach((node, i) => {
       var sourceBounds = node.getBoundingClientRect(),
-          targetBounds = target[i].getBoundingClientRect();
+          targetBounds = target[i] ? target[i].getBoundingClientRect() : target.getBoundingClientRect();
       node.style.transitionDelay = i * options.stagger + 'ms';
       node.style.transform = `translate(${targetBounds.left - sourceBounds.left}px,${targetBounds.top - sourceBounds.top}px)`;
     });
