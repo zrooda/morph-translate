@@ -1,9 +1,8 @@
 # dom-transport
 
-`DOMTransport(source, target, { options })`  
-`DOMTransport(document.querySelectorAll('.source li'), document.querySelectorAll('.target li'), { morph: true })`  
+`DOMTransport(source, target, { options })`
 
-![dom-transport example!](https://github.com/mystrdat/dom-transport/raw/master/example.gif)![dom-transport example2!](https://github.com/mystrdat/dom-transport/raw/master/example2.gif)
+![dom-transport example!](https://github.com/mystrdat/dom-transport/raw/master/examples/example.gif)![dom-transport example2!](https://github.com/mystrdat/dom-transport/raw/master/examples/example2.gif)
 
 - usable for complex effects where some elements persist between independent views
 - source and target elements should have the same DOM structure, otherwise results may vary
