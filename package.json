@@ -1,22 +1,22 @@
 {
-  "name": "dom-transport",
+  "name": "morph-translate",
   "version": "1.0.0",
-  "description": "Visual transport of HTML elements between independent views",
+  "description": "Animate HTML elements between independent views",
   "main": "index.js",
   "scripts": {
-    "build": "rollup src/index.js --format umd --name DOMTransport --output index.js",
+    "build": "rollup src/index.js --format umd --name morphTranslate --output index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mystrdat/dom-transport.git"
+    "url": "git+https://github.com/mystrdat/morph-translate.git"
   },
   "author": "mystrdat",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mystrdat/dom-transport/issues"
+    "url": "https://github.com/mystrdat/morph-translate/issues"
   },
-  "homepage": "https://github.com/mystrdat/dom-transport#readme",
+  "homepage": "https://github.com/mystrdat/morph-translate#readme",
   "dependencies": {
     "rollup": "^0.41.6"
   }

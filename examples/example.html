@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>dom-transport | example1</title>
+  <title>morph-translate | example1</title>
   <link rel="stylesheet" href="example.css">
   <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i" rel="stylesheet">
 </head>
@@ -15,7 +15,7 @@
   <ul class="users">
     <li>
       <span class="avatar"></span>
-      <span class="name">Jay "Gif" Jiff</span>
+      <span class="name">Jay <em>"Gif"</em> Jiff</span>
       <span class="job">GTFO of Technology</span>
     </li>
     <li>
@@ -34,7 +34,7 @@
 
 <div class="view view-b">
   <span class="avatar" id="avatar"></span>
-  <span class="name">Jay "Gif" Jiff</span>
+  <span class="name">Jay <em>"Gif"</em> Jiff</span>
   <ul>
     <li>Quite the baller</li>
     <li>Opportunistic memer</li>
@@ -51,12 +51,12 @@
     document.querySelectorAll('.users li').forEach(function (node) {
       node.addEventListener('click', function (){
         document.querySelector('.view-b').classList.add('active');
-        DOMTransport(node.getElementsByClassName('avatar'), document.getElementById('avatar'), { morph: true, duration: 800, easing: 'ease-out' });
+        morphTranslate(node.getElementsByClassName('avatar'), document.getElementById('avatar'), { morph: true, duration: 800, easing: 'ease-out', morphChildren: false });
         setTimeout(function () {
-          DOMTransport(node.querySelector('.name'), document.querySelector('.view-b .name'), { morph: true,  duration: 800, easing: 'ease-out' })
+          morphTranslate(node.querySelector('.name'), document.querySelector('.view-b .name'), { morph: true,  duration: 800, easing: 'ease-out' })
         }, 300);
         setTimeout(function () {
-          DOMTransport(node.querySelector('.job'), document.querySelector('.view-b .job'), { morph: true, duration: 800, easing: 'ease-out' });
+          morphTranslate(node.querySelector('.job'), document.querySelector('.view-b .job'), { morph: true, duration: 800, easing: 'ease-out' });
         }, 200);
       })
     })

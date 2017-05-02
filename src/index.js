@@ -1,32 +1,44 @@
-const DOMTransport = (src, tgt, opts) => {
+const morphTranslate = (src, tgt, opts) => {
   // Defaults
   const refs = [],
         source = src instanceof HTMLElement ? [src] : Array.from(src),
         target = tgt instanceof HTMLElement ? [tgt] : Array.from(tgt),
         options = Object.assign({
           morph: false,
+          morphChildren: true,
           morphProps: ['width', 'height', 'padding', 'color', 'background', 'border', 'fontSize', 'opacity'],
-          duration: 300,
+          duration: 500,
           easing: 'ease-in-out',
           stagger: 30,
+          zIndex: 1000,
           hideSource: true,
           hideTarget: true,
           removeClonesAfter: true,
+          willChange: ['transform'],
           log: false
         }, opts);
   
-  // Get a deep node clone with all styles
-  function getClone(source) {
+  // Create a deep node clone with all styles
+  function createClone(source, index) {
     const clone = source.cloneNode(true),
-        cloneChildren = Array.prototype.slice.call(clone.querySelectorAll('*')),
-        sourceChildren = Array.prototype.slice.call(source.querySelectorAll('*'));
-    cloneChildren.push(clone);
-    sourceChildren.push(source);
-    sourceChildren.forEach((node, i) => {
-      const currentClone = cloneChildren[i];
+        cloneNodes = Array.prototype.slice.call(clone.querySelectorAll('*')),
+        sourceNodes = Array.prototype.slice.call(source.querySelectorAll('*'));
+    cloneNodes.push(clone);
+    sourceNodes.push(source);
+    sourceNodes.forEach((node, i) => {
+      const currentClone = cloneNodes[i];
       currentClone.removeAttribute('id');
       currentClone.removeAttribute('class');
       currentClone.style.cssText = window.getComputedStyle(node).cssText;
+      if (node == source || options.morphChildren) {
+        // Transition properties
+        currentClone.style.transitionProperty = 'all';
+        currentClone.style.transitionDuration = `${options.duration}ms`;
+        clone.style.transitionDelay = `${index * options.stagger}ms`;
+        currentClone.style.transitionTimingFunction = options.easing;
+        // Conflicting properties
+        currentClone.style.webkitTextFillColor = 'initial';
+      }
     })
     return clone;
   }
@@ -36,24 +48,18 @@ const DOMTransport = (src, tgt, opts) => {
     const fragment = document.createDocumentFragment();
     source.forEach((node, i) => {
       options.log && console.info('cloning', node);
-      const clone = getClone(node),
-          sourceBounds = node.getBoundingClientRect();
+      const clone = createClone(node, i),
+            sourceBounds = node.getBoundingClientRect();
       // Cache reference
       refs.push(clone);
       // Positioning
       clone.style.position = 'fixed';
       clone.style.left = `${sourceBounds.left}px`;
       clone.style.top = `${sourceBounds.top}px`;
-      clone.style.zIndex = '1000';
-      // Custom properties
-      clone.style.transitionProperty = 'all';
-      clone.style.transitionDuration = `${options.duration}ms`;
-      clone.style.transitionTimingFunction = options.easing;
-      // clone.style.willChange = 'transform';
-      // Conflicting properties
+      clone.style.zIndex = options.zIndex;
+      // Properties conflicting with positioning
       clone.style.margin = 0;
       clone.style.transform = 'none';
-      clone.style.webkitTextFillColor = 'initial';
       fragment.appendChild(clone);
     })
     return fragment;
@@ -76,30 +82,41 @@ const DOMTransport = (src, tgt, opts) => {
     options.log && console.info('morphing', source, target);
     source.forEach((node, i) => {
       const currentTarget = target[i] || target[0],
-          targetStyles = window.getComputedStyle(currentTarget),
-          sourceBounds = node.getBoundingClientRect(),
-          targetBounds = currentTarget.getBoundingClientRect(),
-          scaleX = targetBounds.width / currentTarget.offsetWidth,
-          scaleY = targetBounds.height / currentTarget.offsetHeight,
-          translateX = targetBounds.left + ((targetBounds.width - targetBounds.width / scaleX) / 2) - sourceBounds.left,
-          translateY = targetBounds.top + ((targetBounds.height - targetBounds.height / scaleY) / 2) - sourceBounds.top;
-      // Stagger delay
-      node.style.transitionDelay = `${i * options.stagger}ms`;
+            targetStyles = window.getComputedStyle(currentTarget),
+            sourceBounds = node.getBoundingClientRect(),
+            targetBounds = currentTarget.getBoundingClientRect(),
+            scaleX = targetBounds.width / currentTarget.offsetWidth,
+            scaleY = targetBounds.height / currentTarget.offsetHeight,
+            translateX = targetBounds.left + ((targetBounds.width - targetBounds.width / scaleX) / 2) - sourceBounds.left,
+            translateY = targetBounds.top + ((targetBounds.height - targetBounds.height / scaleY) / 2) - sourceBounds.top;
+      // Parent
+      node.style.transformOrigin = '50% 50% 0';
+      node.style.transform = `translate(${translateX}px,${translateY}px) scale(${scaleX},${scaleY})`;
       // Transition all relevant properties to target state
       options.morphProps.forEach((property) => {
         node.style[property] = targetStyles[property];
       })
-      node.style.transformOrigin = '50% 50% 0';
-      node.style.transform = `translate(${translateX}px,${translateY}px) scale(${scaleX},${scaleY})`;
+      // Children
+      if (options.morphChildren) {
+        const sourceNodes = Array.prototype.slice.call(node.querySelectorAll('*')),
+              targetNodes = Array.prototype.slice.call(currentTarget.querySelectorAll('*'));
+        sourceNodes.forEach((child, n) => {
+          const targetChild = targetNodes[n],
+                targetChildStyles = window.getComputedStyle(targetChild);
+          options.morphProps.forEach((property) => {
+            child.style[property] = targetChildStyles[property];
+          })
+        })
+      }
     })
   }
 
-  function tweenToPosition(source, target) {
+  // Translate into target
+  function translateToPosition(source, target) {
     options.log && console.info('tweening', source, target);
     source.forEach((node, i) => {
       const sourceBounds = node.getBoundingClientRect(),
-          targetBounds = target[i] ? target[i].getBoundingClientRect() : target[0].getBoundingClientRect();
-      node.style.transitionDelay = `${i * options.stagger}ms`;
+            targetBounds = target[i] ? target[i].getBoundingClientRect() : target[0].getBoundingClientRect();
       node.style.transform = `translate(${targetBounds.left - sourceBounds.left}px,${targetBounds.top - sourceBounds.top}px)`;
     })
   }
@@ -119,7 +136,7 @@ const DOMTransport = (src, tgt, opts) => {
     if (options.morph) {
       morphToPosition(refs, target);
     } else {
-      tweenToPosition(refs, target);
+      translateToPosition(refs, target);
     }
     // Clean after effect
     setTimeout(() => {
@@ -137,4 +154,4 @@ const DOMTransport = (src, tgt, opts) => {
   runTheShow();
 }
 
-export default DOMTransport;
+export default morphTranslate;

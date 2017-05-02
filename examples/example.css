@@ -85,6 +85,9 @@ p {
   transform: scale(1.6);
   color: #258dc8; }
 
+.view-b .name em {
+  color: chartreuse; }
+
 .view-b .name:before {
   content: '';
   display: block;
