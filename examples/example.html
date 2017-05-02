@@ -53,7 +53,7 @@
         document.querySelector('.view-b').classList.add('active');
         morphTranslate(node.getElementsByClassName('avatar'), document.getElementById('avatar'), { morph: true, duration: 800, easing: 'ease-out', morphChildren: false });
         setTimeout(function () {
-          morphTranslate(node.querySelector('.name'), document.querySelector('.view-b .name'), { morph: true,  duration: 800, easing: 'ease-out' })
+          morphTranslate(node.querySelector('.name'), document.querySelector('.view-b .name'), { morph: true,  duration: 800, easing: 'ease-out', willChange: true })
         }, 300);
         setTimeout(function () {
           morphTranslate(node.querySelector('.job'), document.querySelector('.view-b .job'), { morph: true, duration: 800, easing: 'ease-out' });

@@ -20,7 +20,7 @@ const morphTranslate = (src, tgt, opts) => {
           hideSource: true,
           hideTarget: true,
           removeClonesAfter: true,
-          willChange: ['transform'],
+          willChange: false,
           log: false
         }, opts);
   
@@ -38,9 +38,11 @@ const morphTranslate = (src, tgt, opts) => {
       currentClone.style.cssText = window.getComputedStyle(node).cssText;
       if (node == source || options.morphChildren) {
         // Transition properties
-        currentClone.style.transitionProperty = 'all';
+        const changedProps = options.morphProps.map((x) => x.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()).join(', ');
+        currentClone.style.willChange = options.willChange ? `transform, ${changedProps}` : 'auto';
+        currentClone.style.transitionProperty = options.morph ? `transform, ${changedProps}` : 'transform';
         currentClone.style.transitionDuration = `${options.duration}ms`;
-        clone.style.transitionDelay = `${index * options.stagger}ms`;
+        currentClone.style.transitionDelay = `${index * options.stagger}ms`;
         currentClone.style.transitionTimingFunction = options.easing;
         // Conflicting properties
         currentClone.style.webkitTextFillColor = 'initial';

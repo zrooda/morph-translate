@@ -21,6 +21,7 @@
 `easing` - animation easing (`'ease-in-out'`)  
 `stagger` - animation delay between subsequent members in ms (`30`)  
 `zIndex` - zIndex value of the animated clones (`1000`)  
+`willChange` - set `will-change` for all morphProps on each clone node (`false`)  
 `hideSource` - hide source element during animation (`true`)  
 `hideTarget` - hide target element during animation (`true`)  
 `removeClonesAfter` - remove clones after animation (`true`)  
@@ -34,6 +35,6 @@ What is happening?
 1. Styled clones of the source elements are created in `document.body` and positioned over the originals
 2. Source originals and target elements are hidden using `visibility: hidden`
 3. Target bounds and styles are calculated
-    * Source clones are translated to target offset using CSS transforms
+    * Source clones are translated to target offset using CSS transform transitions
     * (**morph**) All relevant properties on source and its children are transitioned into target calculated properties
-4. When transition finishes, clones are removed and target elements are revealed using `visibility: visible`, callbacks fire
+4. Transition finishes, clones are removed and target elements are revealed using `visibility: visible`, callbacks fire
