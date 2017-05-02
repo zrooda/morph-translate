@@ -4,7 +4,6 @@ const DOMTransport = (src, tgt, opts) => {
         source = src instanceof HTMLElement ? [src] : Array.from(src),
         target = tgt instanceof HTMLElement ? [tgt] : Array.from(tgt),
         options = Object.assign({
-          log: false,
           morph: false,
           morphProps: ['width', 'height', 'padding', 'color', 'background', 'border', 'fontSize', 'opacity'],
           duration: 300,
@@ -12,18 +11,19 @@ const DOMTransport = (src, tgt, opts) => {
           stagger: 30,
           hideSource: true,
           hideTarget: true,
-          removeClonesAfter: true
+          removeClonesAfter: true,
+          log: false
         }, opts);
   
   // Get a deep node clone with all styles
   function getClone(source) {
     const clone = source.cloneNode(true),
-        clones = Array.prototype.slice.call(clone.querySelectorAll('*')),
-        sources = Array.prototype.slice.call(source.querySelectorAll('*'));
-    clones.push(clone);
-    sources.push(source);
-    sources.forEach((node, i) => {
-      const currentClone = clones[i];
+        cloneChildren = Array.prototype.slice.call(clone.querySelectorAll('*')),
+        sourceChildren = Array.prototype.slice.call(source.querySelectorAll('*'));
+    cloneChildren.push(clone);
+    sourceChildren.push(source);
+    sourceChildren.forEach((node, i) => {
+      const currentClone = cloneChildren[i];
       currentClone.removeAttribute('id');
       currentClone.removeAttribute('class');
       currentClone.style.cssText = window.getComputedStyle(node).cssText;
@@ -75,7 +75,7 @@ const DOMTransport = (src, tgt, opts) => {
   function morphToPosition(source, target) {
     options.log && console.info('morphing', source, target);
     source.forEach((node, i) => {
-      var currentTarget = target[i] || target,
+      const currentTarget = target[i] || target[0],
           targetStyles = window.getComputedStyle(currentTarget),
           sourceBounds = node.getBoundingClientRect(),
           targetBounds = currentTarget.getBoundingClientRect(),
@@ -97,8 +97,8 @@ const DOMTransport = (src, tgt, opts) => {
   function tweenToPosition(source, target) {
     options.log && console.info('tweening', source, target);
     source.forEach((node, i) => {
-      var sourceBounds = node.getBoundingClientRect(),
-          targetBounds = target[i] ? target[i].getBoundingClientRect() : target.getBoundingClientRect();
+      const sourceBounds = node.getBoundingClientRect(),
+          targetBounds = target[i] ? target[i].getBoundingClientRect() : target[0].getBoundingClientRect();
       node.style.transitionDelay = `${i * options.stagger}ms`;
       node.style.transform = `translate(${targetBounds.left - sourceBounds.left}px,${targetBounds.top - sourceBounds.top}px)`;
     })
