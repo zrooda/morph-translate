@@ -84,7 +84,7 @@ const DOMTransport = (src, tgt, opts) => {
           translateX = targetBounds.left + ((targetBounds.width - targetBounds.width / scaleX) / 2) - sourceBounds.left,
           translateY = targetBounds.top + ((targetBounds.height - targetBounds.height / scaleY) / 2) - sourceBounds.top;
       // Stagger delay
-      node.style.transitionDelay = i * options.stagger + 'ms';
+      node.style.transitionDelay = `${i * options.stagger}ms`;
       // Transition all relevant properties to target state
       options.morphProps.forEach((property) => {
         node.style[property] = targetStyles[property];
@@ -99,7 +99,7 @@ const DOMTransport = (src, tgt, opts) => {
     source.forEach((node, i) => {
       var sourceBounds = node.getBoundingClientRect(),
           targetBounds = target[i] ? target[i].getBoundingClientRect() : target.getBoundingClientRect();
-      node.style.transitionDelay = i * options.stagger + 'ms';
+      node.style.transitionDelay = `${i * options.stagger}ms`;
       node.style.transform = `translate(${targetBounds.left - sourceBounds.left}px,${targetBounds.top - sourceBounds.top}px)`;
     })
   }
