@@ -17,14 +17,14 @@
 `morph` - attempt to morph source into target (`false`)  
 `morphChildren` - if morph, also morph source children into target children (`true`)  
 `morphProps` - properties to transition during a morph ([Array](https://github.com/mystrdat/morph-translate/blob/master/src/index.js#L9))  
-`duration` - transport duration in ms (`500`)  
-`easing` - transport easing (`'ease-in-out'`)  
-`stagger` - transport delay between members in ms (`30`)  
+`duration` - animation duration in ms (`500`)  
+`easing` - animation easing (`'ease-in-out'`)  
+`stagger` - animation delay between subsequent members in ms (`30`)  
 `zIndex` - zIndex value of the animated clones (`1000`)  
-`hideSource` - hide source element during transport (`true`)  
-`hideTarget` - hide target element during transport (`true`)  
-`removeClonesAfter` - remove clones after transport (`true`)  
-`callback` - function to call after transport is done  
+`hideSource` - hide source element during animation (`true`)  
+`hideTarget` - hide target element during animation (`true`)  
+`removeClonesAfter` - remove clones after animation (`true`)  
+`callback` - function to call after animation is done  
 `log` - logging to console (`false`)
 
 ### Technical
